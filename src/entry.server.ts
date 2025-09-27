@@ -12,8 +12,8 @@ export function render(url: string) {
     <h1>CJS Double Load MRE</h1>
     <p>URL: ${url}</p>
     <div id="app">
-      <p>ID from 'my-cjs-module': <code>${idFromA}</code></p>
-      <p>ID from 'npm:my-cjs-module@^1.0.0': <code>${idFromB}</code></p>
+      <p>ID from 'noop-tag': <code>${idFromA}</code></p>
+      <p>ID from 'npm:noop-tag': <code>${idFromB}</code></p>
       <hr />
       <p>Are they the same instance? <strong>${areSame}</strong></p>
       ${
