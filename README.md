@@ -1,2 +1,2 @@
 deno task dev --force
-Go to 
+Go to http://localhost:8000/
