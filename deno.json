@@ -1,0 +1,28 @@
+{
+  "tasks": {
+    "dev": "deno run -A main.ts"
+  },
+  "nodeModulesDir": "auto",
+  "imports": {
+    "connect": "npm:connect@^3.7.0",
+    "vite": "npm:vite@^7.1.6",
+    "noop-tag": "npm:noop-tag@2.0.1"
+  },
+  "links": [
+    "./cjs-package"
+  ],
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.asynciterable",
+      "dom.iterable",
+      "deno.ns"
+    ],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "jsxImportSourceTypes": "@types/react",
+    "types": [
+      "vite/client"
+    ]
+  }
+}
