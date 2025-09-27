@@ -9,11 +9,9 @@ const vite = await createViteServer({
 });
 
 Deno.serve(async (req) => {
-  const url = req.url;
-
   try {
     const template = await vite.transformIndexHtml(
-      url,
+      req.url,
       `
         <!DOCTYPE html>
         <html lang="en">
@@ -32,7 +30,7 @@ Deno.serve(async (req) => {
     const { render } = await ssrEnv.runner.import(
       "./src/entry.server.ts",
     );
-    const appHtml = await render(url);
+    const appHtml = await render(req.url);
     const html = template.replace(`<!--ssr-outlet-->`, appHtml);
     return new Response(html, { headers: { "content-type": "text/html" } });
   } catch (e) {
