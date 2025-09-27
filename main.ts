@@ -1,6 +1,3 @@
-import fs from "node:fs";
-import path from "node:path";
-
 import {
   createServer as createViteServer,
   isRunnableDevEnvironment,
@@ -15,18 +12,23 @@ Deno.serve(async (req) => {
   const url = req.url;
 
   try {
-    let template = fs.readFileSync(
-      path.resolve(import.meta.dirname ?? "", "index.html"),
-      "utf-8",
+    const template = await vite.transformIndexHtml(
+      url,
+      `
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          </head>
+          <body><!--ssr-outlet--></body>
+        </html>
+      `,
     );
-    template = await vite.transformIndexHtml(url, template);
     const ssrEnv = vite.environments.ssr;
-
-    // Type guard to ensure the environment has a module runner.
     if (!isRunnableDevEnvironment(ssrEnv)) {
       throw new Error('The "ssr" environment is not a runnable environment.');
     }
-
     const { render } = await ssrEnv.runner.import(
       "./src/entry.server.ts",
     );
